@@ -94,9 +94,6 @@ export function setupContextMenu() {
                 i++;
               }
             });
-
-            window.console.log(`Sides: ${items.length}`);
-            window.console.log(items);
           });
         } else {
           OBR.notification.show(`You need to select 2 tokens to start the clash`);
