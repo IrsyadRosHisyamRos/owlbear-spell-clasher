@@ -7,7 +7,7 @@ document.querySelector("#app").innerHTML = `
   <div>
     <h1>ChadRose's Spell Clasher</h1>
     <h2>Mechanic by sup2244</h2>
-    <ul id="clasher-list"></ul>
+    <div id="clasher-list"></div>
   </div>
 `;
 

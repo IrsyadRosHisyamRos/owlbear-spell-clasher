@@ -1,31 +1,9 @@
 import OBR from "@owlbear-rodeo/sdk";
-
-const ID = "com.chadrose.spell-clash";
+import { getExtensionId } from "./utils";
 
 export function setupContextMenu() {
-  // OBR.contextMenu.create({
-  //   id: `${ID}/context-menu-2`,
-  //   icons: [
-  //     {
-  //       icon: "/add.svg",
-  //       label: "should be Clash Menu, idk",
-  //       filter: {
-  //         every: [
-  //           { key: "layer", value: "CHARACTER", coordinator: "||" },
-  //           { key: "layer", value: "MOUNT"},
-  //         ],
-  //       },
-  //     },
-  //   ],
-  //   embed: {
-  //     url: "https://www.youtube.com/results?search_query=owlbear+rodeo+create+extension"
-  //   },
-  //   onClick(){
-  //     window.console.log("Menu2 Clicked")
-  //   },
-  // });
   OBR.contextMenu.create({
-    id: `${ID}/context-menu`,
+    id: getExtensionId("context-menu"),
     icons: [
       {
         icon: "/add.svg",
@@ -34,7 +12,7 @@ export function setupContextMenu() {
           every: [ // Shows this button if the token is a character and has no metadata
             { key: "layer", value: "CHARACTER", coordinator: "||" },
             { key: "layer", value: "MOUNT" },
-            { key: ["metadata", `${ID}/metadata`], value: undefined },
+            { key: ["metadata", getExtensionId("metadata")], value: undefined },
           ],
         },
       },
@@ -56,7 +34,7 @@ export function setupContextMenu() {
       // Check if item is being removed or added
       const addToClash = context.items.every(
         (item) => {
-          let isNotClashing = item.metadata[`${ID}/metadata`] === undefined
+          let isNotClashing = item.metadata[getExtensionId("metadata")] === undefined
           return isNotClashing
         }
       );
@@ -66,12 +44,12 @@ export function setupContextMenu() {
         if (context.items.length > 1) {
           // Find all items that are in clash
           OBR.scene.items.getItems(
-            (item) => item.metadata[`${ID}/metadata`] // All item that have clash metadata
+            (item) => item.metadata[getExtensionId("metadata")] // All item that have clash metadata
           ).then((items)=>{
             if (items.length > 0){ // There is already a clash
               OBR.scene.items.updateItems(items, (items) => {
                 for (let item of items) {
-                  item.metadata[`${ID}/metadata`] = undefined
+                  item.metadata[getExtensionId("metadata")] = undefined
                 }
               });
             }
@@ -85,7 +63,7 @@ export function setupContextMenu() {
                 else side = undefined
 
                 if (side){
-                  item.metadata[`${ID}/metadata`] = {
+                  item.metadata[getExtensionId("metadata")] = {
                     side: side,
                     pushScore: 0,
                   };
@@ -100,11 +78,11 @@ export function setupContextMenu() {
         }
       } else {
         OBR.scene.items.getItems(
-          (item) => item.metadata[`${ID}/metadata`] // All item that have clash metadata
+          (item) => item.metadata[getExtensionId("metadata")] // All item that have clash metadata
         ).then((items)=>{
           OBR.scene.items.updateItems(items, (items) => {
             for (let item of items) {
-              delete item.metadata[`${ID}/metadata`]
+              delete item.metadata[getExtensionId("metadata")]
             }
           });
         });
