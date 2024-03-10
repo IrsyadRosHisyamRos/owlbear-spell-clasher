@@ -64,8 +64,9 @@ export function setupContextMenu() {
 
                 if (side){
                   item.metadata[getExtensionId("metadata")] = {
+                    id: item.id,
                     side: side,
-                    pushScore: 0,
+                    score: 0,
                   };
                 }
 
